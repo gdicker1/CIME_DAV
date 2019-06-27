@@ -404,6 +404,7 @@ else
   endif
 endif
 CSM_SHR_INCLUDE:=$(INSTALL_SHAREDPATH)/$(COMP_INTERFACE)/$(ESMFDIR)/$(NINST_VALUE)/include
+
 # This is needed so that dependancies are found
 VPATH+=$(CSM_SHR_INCLUDE)
 
@@ -411,6 +412,7 @@ VPATH+=$(CSM_SHR_INCLUDE)
 # Set include paths (needed after override for any model specific builds below)
 #===============================================================================
 INCLDIR += -I$(INSTALL_SHAREDPATH)/include -I$(INSTALL_SHAREDPATH)/$(COMP_INTERFACE)/$(ESMFDIR)/$(NINST_VALUE)/include
+INCLDIR += -I$(INSTALL_SHAREDPATH)/$(COMP_INTERFACE)/$(ESMFDIR)/$(NINST_VALUE)/csm_share
 
 ifeq ($(NETCDF_SEPARATE), FALSE)
   INCLDIR += -I$(INC_NETCDF)
