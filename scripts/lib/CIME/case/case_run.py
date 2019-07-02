@@ -80,6 +80,11 @@ def _run_model_impl(case, lid, skip_pnl=False, da_cycle=0):
 
     # Run the model
     cmd = case.get_mpirun_cmd(allow_unresolved_envvars=False)
+#    print("in _run_model command is", cmd)
+#    ind = cmd.find('/glade/')
+#    cmd = cmd[:ind] + " --oversubscribe " + cmd[ind:]
+    ind = cmd.find('144')
+    cmd = cmd[:ind] + "36" + cmd[ind+3:]
     logger.info("run command is {} ".format(cmd))
 
     rundir = case.get_value("RUNDIR")
@@ -106,7 +111,7 @@ def _run_model_impl(case, lid, skip_pnl=False, da_cycle=0):
         model_log("e3sm", logger, "{} SAVE_PRERUN_PROVENANCE HAS FINISHED".format(time.strftime("%Y-%m-%d %H:%M:%S")))
 
         model_log("e3sm", logger, "{} MODEL EXECUTION BEGINS HERE".format(time.strftime("%Y-%m-%d %H:%M:%S")))
-        run_func = lambda: run_cmd(cmd, from_dir=rundir)[0]
+        run_func = lambda: run_cmd(cmd, from_dir=rundir, env=os.environ)[0]
         stat = run_and_log_case_status(run_func, "model execution", caseroot=case.get_value("CASEROOT"))
         model_log("e3sm", logger, "{} MODEL EXECUTION HAS FINISHED".format(time.strftime("%Y-%m-%d %H:%M:%S")))
 
