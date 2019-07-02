@@ -83,8 +83,8 @@ def _run_model_impl(case, lid, skip_pnl=False, da_cycle=0):
 #    print("in _run_model command is", cmd)
 #    ind = cmd.find('/glade/')
 #    cmd = cmd[:ind] + " --oversubscribe " + cmd[ind:]
-    ind = cmd.find('144')
-    cmd = cmd[:ind] + "36" + cmd[ind+3:]
+#    ind = cmd.find('144')
+#    cmd = cmd[:ind] + "36" + cmd[ind+3:]
     logger.info("run command is {} ".format(cmd))
 
     rundir = case.get_value("RUNDIR")
