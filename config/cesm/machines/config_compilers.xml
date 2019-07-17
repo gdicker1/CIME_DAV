@@ -595,6 +595,9 @@ using a fortran linker.
 </compiler>
 
 <compiler MACH="cheyenne" COMPILER="pgi">
+  <CPPDEFS>
+    <append> -DFORTRANUNDERSCORE -DNO_SHR_VMATH -DNO_R16  -DCPRPGI -DNO_QUAD_PRECISION</append>
+  </CPPDEFS>
   <SLIBS>
     <append> -llapack -lblas </append>
     <append MPILIB="mpi-serial"> -ldl </append>
