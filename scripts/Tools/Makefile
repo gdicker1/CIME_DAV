@@ -324,6 +324,9 @@ else
   EXTRA_PIO_CPPDEFS = -D_NO_MPI_RSEND
 endif
 
+ifdef LIB_NETCDF
+   SLIBS += -L$(LIB_NETCDF) -lnetcdff -lnetcdf
+endif
 ifdef LIB_PNETCDF
    CPPDEFS += -D_PNETCDF
    SLIBS += -L$(LIB_PNETCDF) -lpnetcdf
@@ -404,7 +407,6 @@ else
   endif
 endif
 CSM_SHR_INCLUDE:=$(INSTALL_SHAREDPATH)/$(COMP_INTERFACE)/$(ESMFDIR)/$(NINST_VALUE)/include
-
 # This is needed so that dependancies are found
 VPATH+=$(CSM_SHR_INCLUDE)
 
@@ -412,7 +414,6 @@ VPATH+=$(CSM_SHR_INCLUDE)
 # Set include paths (needed after override for any model specific builds below)
 #===============================================================================
 INCLDIR += -I$(INSTALL_SHAREDPATH)/include -I$(INSTALL_SHAREDPATH)/$(COMP_INTERFACE)/$(ESMFDIR)/$(NINST_VALUE)/include
-INCLDIR += -I$(INSTALL_SHAREDPATH)/$(COMP_INTERFACE)/$(ESMFDIR)/$(NINST_VALUE)/csm_share
 
 ifeq ($(NETCDF_SEPARATE), FALSE)
   INCLDIR += -I$(INC_NETCDF)
@@ -468,6 +469,9 @@ else
   endif
 endif
 
+ifdef LIB_NETCDF
+  SLIBS += -rpath=$(LIB_NETCDF)
+endif
 
 ifndef MCT_LIBDIR
   MCT_LIBDIR=$(INSTALL_SHAREDPATH)/lib
@@ -882,7 +886,7 @@ endif
 
 install_lib: $(COMPLIB)
 	$(CP) -p $(COMPLIB) $(CSMSHARELIB)
-	
+	$(CP) -p *.$(MOD_SUFFIX) *.h $(INCLUDE_DIR)
 
 
 $(EXEC_SE): $(OBJS) $(ULIBDEP) $(CSMSHARELIB) $(MCTLIBS) $(PIOLIB) $(GPTLLIB)
